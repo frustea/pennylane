@@ -1457,6 +1457,39 @@ class QubitStateVector(Operation):
 
         return rec.queue
 
+############### Add XX ###########
+class XX(Operation):
+  
+    num_params = 1
+    num_wires = 2
+    par_domain = "R"
+    grad_method = "A"
+    generator = [np.array([[0, 0, 0, 1],
+       [0, 0, 1, 0],
+       [0, 1, 0, 0],
+       [1, 0, 0, 0]]), -1 ]
+
+    @classmethod
+    def _matrix(cls, *params):
+        phi = params
+        c = math.cos(phi)
+        s = math.sin(phi)
+
+        return np.array(
+            [
+                [c, 0, 0, -1*j*s],
+                [0, c, -1*j*s, 0],
+                [0, -1*j*s,c, 0],
+                [-1*j*s, 0, 0, c],
+            ]
+        )
+
+
+
+
+##################################
+
+
 
 # =============================================================================
 # Observables
@@ -1580,6 +1613,7 @@ ops = {
     "QubitStateVector",
     "QubitUnitary",
     "DiagonalQubitUnitary",
+    "XX",
 }
 
 
