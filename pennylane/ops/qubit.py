@@ -1489,7 +1489,7 @@ class XX(Operation):
 
 ############################# Add PauliZoff ########
 
-class PauliZ(Observable, DiagonalOperation):
+class PauliZoff(Observable, DiagonalOperation):
     r"""PauliZ(wires)
     The Pauli Z operator
 
