@@ -1487,7 +1487,43 @@ class XX(Operation):
 
 
 
-##################################
+############################# Add PauliZoff ########
+
+class PauliZ(Observable, DiagonalOperation):
+    r"""PauliZ(wires)
+    The Pauli Z operator
+
+    .. math:: \sigma_z = \begin{bmatrix} 1 & 0 \\ 0 & -1\end{bmatrix}.
+
+    **Details:**
+
+    * Number of wires: 1
+    * Number of parameters: 0
+
+    Args:
+        wires (Sequence[int] or int): the wire the operation acts on
+    """
+    num_params = 0
+    num_wires = 1
+    par_domain = None
+    eigvals = np.array([1, 0])
+    matrix = np.array([[1, 0], [0, 0]])
+
+    @classmethod
+    def _matrix(cls, *params):
+        return cls.matrix
+
+    @classmethod
+    def _eigvals(cls, *params):
+        return cls.eigvals
+
+    def diagonalizing_gates(self):
+        return []
+
+    @staticmethod
+    def decomposition(wires):
+        decomp_ops = [PhaseShift(np.pi, wires=wires)]
+        return decomp_ops
 
 
 
@@ -1614,10 +1650,11 @@ ops = {
     "QubitUnitary",
     "DiagonalQubitUnitary",
     "XX",
+    "PauliZoff",
 }
 
 
-obs = {"Hadamard", "PauliX", "PauliY", "PauliZ", "Hermitian"}
+obs = {"Hadamard", "PauliX", "PauliY", "PauliZ","PauliZoff", "Hermitian"}
 
 
 __all__ = list(ops | obs)
